@@ -66,4 +66,14 @@ class DepartmentController extends Controller
             'employees' => $employees
         ]);
     }
+
+    public function employees(Department $department)
+    {
+        $employees = $department->employees()->with(['department', 'position'])->paginate(10);
+
+        return Inertia::render('Departments/Employees', [
+            'department' => $department,
+            'employees' => $employees,
+        ]);
+}
 }
